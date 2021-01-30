@@ -1,0 +1,29 @@
+.header {
+    position        : fixed;
+    top             : 0;
+    left            : 0;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    width           : 100%;
+    height          : 66px;
+    background-color: #ffffff;
+    box-shadow      : 0px 5px 5px #ebebeb;
+
+    // cover antd style
+    .ant-btn {
+        position        : relative;
+        background-color: transparent !important;
+        border          : none !important;
+        cursor          : pointer;
+    }
+
+    .anticon {
+        font-size: 20px !important;
+        color    : #2f54eb !important;
+    }
+}
+
+.header>*:not(:first-child) {
+    margin-left: 30px;
+}
