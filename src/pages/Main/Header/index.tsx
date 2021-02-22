@@ -18,10 +18,10 @@ export default class Header extends Component {
                 <Tooltip title="save">
                     <Button icon={<SaveOutlined />} />
                 </Tooltip>
-                <Tooltip title="upload">
+                <Tooltip title="upload json file">
                     <Button icon={<UploadOutlined />} />
                 </Tooltip>
-                <Tooltip title="create new">
+                <Tooltip title="new">
                     <Button icon={<FileAddOutlined />} />
                 </Tooltip>
                 <Tooltip title="download">

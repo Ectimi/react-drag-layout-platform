@@ -31,22 +31,42 @@ const tabList: Array<TabItem> = [
     {
         title: '媒体',
         iconComponent: <PlayCircleOutlined />,
-        components: []
+        components: [
+            {
+                img: carouselImg,
+                text: '轮播图组件'
+            },
+        ]
     },
     {
         title: '图表',
         iconComponent: <PieChartOutlined />,
-        components: []
+        components: [
+            {
+                img: carouselImg,
+                text: '轮播图组件'
+            },
+        ]
     },
     {
         title: '商品',
         iconComponent: <ShopOutlined />,
-        components: []
+        components: [
+            {
+                img: carouselImg,
+                text: '轮播图组件'
+            },
+        ]
     },
     {
         title: '我的',
         iconComponent: <UserOutlined />,
-        components: []
+        components: [
+            {
+                img: carouselImg,
+                text: '轮播图组件'
+            },
+        ]
     }
 ]
 
