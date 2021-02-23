@@ -3,18 +3,23 @@
     padding-top: 70px;
 
     .container {
+        display: flex;
+        flex-wrap: nowrap;
         position    : relative;
         height      : 100%;
         background-color: #f5f5f5;
+        overflow: hidden;
 
         .sliderBox {
-            position: fixed;
-            left    : 0;
-            top     : 70px;
-            width   : 400px;
             height  : 100%;
             background-color: #ffffff;
             z-index : 1;
+        }
+
+        .right{
+            padding-bottom: 20px;
+            flex-basis: auto;
+            overflow: hidden;
         }
     }
 }

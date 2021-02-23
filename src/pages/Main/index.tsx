@@ -5,6 +5,7 @@ import Header from './Header'
 import Slider from './Slider'
 import Calibration from './Calibration';
 import EditArea from './EditArea'
+import AttrPanel from './AttrPanel'
 
 const Main: React.FunctionComponent = () => {
     return (
@@ -14,9 +15,12 @@ const Main: React.FunctionComponent = () => {
                 <div className="sliderBox">
                     <Slider />
                 </div>
-                <Calibration />
                 <Calibration type="vertical" />
-                <EditArea />
+                <div className="right">
+                    <Calibration />
+                    <EditArea />
+                </div>
+                <AttrPanel/>
             </div>
         </div>
     )

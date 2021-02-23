@@ -11,23 +11,21 @@ export default function Calibration(props: ICalibrationProps): ReactElement {
     let calibrationLineCounts = length / 5 + 1;
     let calibrationLines = []
     let horizontalStyle: React.CSSProperties = {
-        position: 'fixed',
-        top: '66px',
-        left: '450px',
         width: length + 'px',
         height: '50px',
+        marginLeft:'5px',
         display: 'flex',
+        flexShrink:0,
         justifyContent: 'space-between',
         zIndex:1
     }
 
     let verticalStyle: React.CSSProperties = {
-        position: 'fixed',
-        top: '120px',
-        left: '400px',
         width: '50px',
         height: length + 'px',
+        marginTop:'44px',
         display: 'flex',
+        flexShrink:0,
         flexDirection: 'column',
         justifyContent: 'space-between',
         zIndex:1    
@@ -39,7 +37,7 @@ export default function Calibration(props: ICalibrationProps): ReactElement {
             { ...i % 10 === 0 ? { width: '12px' } : { width: '6px' }, height: '1px' }
 
         let numberStyle = type === 'horizontal' ?
-            { transform: 'translate3d(-4px, 16px, 0px) scale(1.1)' } :
+            { transform: 'translate3d(-2px, 16px, 0px) scale(1.1)' } :
             { transform: 'translate3d(16px, -8px, 0px) scale(1.1)' }
 
         calibrationLines.push(

@@ -1,29 +1,35 @@
 import React, { createRef } from 'react'
 import './index.less'
+import PubSub from 'pubsub-js'
 
 import Canvas from '../Canvas'
-
-import { debounce } from '../../../common/utils'
 
 interface IState {
     translateX: number,
     translateY: number,
 }
 
-export default class EditArea extends React.Component<any, IState> {
+export default class EditArea extends React.PureComponent<any, IState> {
 
     state: IState = {
         translateX: 0,
-        translateY: 0,
+        translateY: 10,
     }
 
+    token:string = ''; //保存订阅的token
     editAreaRef = createRef<HTMLDivElement>();
     canvasBoxRef = createRef<HTMLDivElement>();
 
+    //居中画布
+    centerCanvas(){
+        let centerX = parseFloat(getComputedStyle(this.editAreaRef.current as HTMLDivElement).width) / 2 - parseFloat(getComputedStyle(this.canvasBoxRef.current as HTMLDivElement).width) / 2;
+        this.setState({ translateX: centerX,translateY:10 })
+    }
+
 
     bindMouseEvent() {
-        let editAreaDom = (this.editAreaRef.current) as HTMLElement
-        let canvasBoxDom = (this.canvasBoxRef.current) as HTMLElement
+        let editAreaDom = (this.editAreaRef.current) as HTMLDivElement
+        let canvasBoxDom = (this.canvasBoxRef.current) as HTMLDivElement
 
         let startX: number;
         let startY: number;
@@ -32,7 +38,7 @@ export default class EditArea extends React.Component<any, IState> {
         let prevTranslateX:number;
         let prevTranslateY:number;
 
-        let maxX = parseFloat(getComputedStyle(editAreaDom as HTMLDivElement).width) - parseFloat(getComputedStyle(canvasBoxDom as HTMLDivElement).width);
+        let maxX = parseFloat(getComputedStyle(editAreaDom).width) - parseFloat(getComputedStyle(canvasBoxDom).width);
         let minX = 0;
 
         let mouseMoveHandler = (mouseMoveEvent: MouseEvent) => {
@@ -66,11 +72,13 @@ export default class EditArea extends React.Component<any, IState> {
     }
 
     componentDidMount() {
-        //使 canvasBox 水平居中
-        let centerX = parseFloat(getComputedStyle(this.editAreaRef.current as HTMLDivElement).width) / 2 - parseFloat(getComputedStyle(this.canvasBoxRef.current as HTMLDivElement).width) / 2;
-        this.setState({ translateX: centerX })
-
+        this.centerCanvas()
         this.bindMouseEvent()
+        this.token = PubSub.subscribe('centerCanvas',this.centerCanvas.bind(this))
+    }
+
+    componentWillUnmount(){
+        PubSub.unsubscribe(this.token)
     }
 
     render() {

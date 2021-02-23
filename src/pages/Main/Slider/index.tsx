@@ -1,14 +1,26 @@
+import { useState, useRef } from 'react'
 import './index.less'
-import { Tabs } from 'antd'
-import {tabList} from './config'
-
-const { TabPane } = Tabs;
+import { Button, Tabs } from 'antd'
+import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons'
+import { tabList } from './config'
 
 export default function Slider() {
+    const { TabPane } = Tabs;
+    const sliderEl = useRef<HTMLDivElement>(null)
+    const [status, setStatus] = useState(true)
+
+    const switchHandler = () => {
+        setStatus(!status)
+        sliderEl.current && (sliderEl.current.style.width = status ? '76px' : '400px')
+    }
+
+    const switchButton = (
+        <Button icon={status ? <DoubleLeftOutlined /> : <DoubleRightOutlined />} onClick={switchHandler}></Button>
+    )
 
     return (
-        <div className="slider">
-            <Tabs tabPosition="left">
+        <div className="slider" ref={sliderEl}>
+            <Tabs tabPosition="left" tabBarExtraContent={switchButton} onTabClick={()=>!status && switchHandler()}>
                 {
                     tabList.map((tabItem, index) => {
                         const tabContent = (

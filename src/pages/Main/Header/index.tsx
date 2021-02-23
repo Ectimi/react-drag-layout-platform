@@ -1,16 +1,19 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import './index.less'
+import PubSub from 'pubsub-js'
+
 import {
     SaveOutlined,
     UploadOutlined,
     FileAddOutlined,
     DownloadOutlined,
     UndoOutlined,
-    RedoOutlined
+    RedoOutlined,
+    PicCenterOutlined
 } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd';
 
-export default class Header extends Component {
+export default class Header extends PureComponent {
 
     render() {
         return (
@@ -32,6 +35,9 @@ export default class Header extends Component {
                 </Tooltip>
                 <Tooltip title="redo">
                     <Button icon={<RedoOutlined />} />
+                </Tooltip>
+                <Tooltip title="center">
+                    <Button icon={<PicCenterOutlined />} onClick={() => PubSub.publish('centerCanvas')} />
                 </Tooltip>
             </div>
         )
