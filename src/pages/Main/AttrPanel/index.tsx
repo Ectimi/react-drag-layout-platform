@@ -1,6 +1,8 @@
 import './index.less'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+import { Form,Input } from 'antd'
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons'
+import EditItem from './EditItem'
 
 export default function AttrPanel() {
 
@@ -17,6 +19,10 @@ export default function AttrPanel() {
             <div className="colla" onClick={switchHandler}>
                 {status ? <DoubleRightOutlined /> : <DoubleLeftOutlined />}
             </div>
+            <div className="panelTitle">属性设置</div>
+            <Form>
+                <EditItem children={<Input/>}/>
+            </Form>
         </div>
     )
 }

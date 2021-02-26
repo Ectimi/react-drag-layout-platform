@@ -13,7 +13,7 @@ export default class EditArea extends React.PureComponent<any, IState> {
 
     state: IState = {
         translateX: 0,
-        translateY: 10,
+        translateY: 0,
     }
 
     token:string = ''; //保存订阅的token
@@ -23,13 +23,13 @@ export default class EditArea extends React.PureComponent<any, IState> {
     //居中画布
     centerCanvas(){
         let centerX = parseFloat(getComputedStyle(this.editAreaRef.current as HTMLDivElement).width) / 2 - parseFloat(getComputedStyle(this.canvasBoxRef.current as HTMLDivElement).width) / 2;
-        this.setState({ translateX: centerX,translateY:10 })
+        this.setState({ translateX: centerX,translateY:0 })
     }
 
 
     bindMouseEvent() {
-        let editAreaDom = (this.editAreaRef.current) as HTMLDivElement
-        let canvasBoxDom = (this.canvasBoxRef.current) as HTMLDivElement
+        let editAreaEl = (this.editAreaRef.current) as HTMLDivElement
+        let canvasBoxEl = (this.canvasBoxRef.current) as HTMLDivElement
 
         let startX: number;
         let startY: number;
@@ -38,7 +38,7 @@ export default class EditArea extends React.PureComponent<any, IState> {
         let prevTranslateX:number;
         let prevTranslateY:number;
 
-        let maxX = parseFloat(getComputedStyle(editAreaDom).width) - parseFloat(getComputedStyle(canvasBoxDom).width);
+        let maxX = parseFloat(getComputedStyle(editAreaEl).width) - parseFloat(getComputedStyle(canvasBoxEl).width);
         let minX = 0;
 
         let mouseMoveHandler = (mouseMoveEvent: MouseEvent) => {
@@ -52,33 +52,45 @@ export default class EditArea extends React.PureComponent<any, IState> {
             this.setState({ translateX, translateY })
         }
 
-        editAreaDom.addEventListener('mousedown', (mouseDownEvent: MouseEvent) => {
+        editAreaEl.addEventListener('mousedown', (mouseDownEvent: MouseEvent) => {
             mouseDownEvent.preventDefault()
             let { target, clientX, clientY } = mouseDownEvent
             if ((target as HTMLElement).classList.contains('editArea')) {
-                prevTranslateX = parseFloat(getComputedStyle(canvasBoxDom).transform.substring(6).split(',')[4])
-                prevTranslateY = parseFloat(getComputedStyle(canvasBoxDom).transform.substring(6).split(',')[5])
+                prevTranslateX = parseFloat(getComputedStyle(canvasBoxEl).transform.substring(6).split(',')[4])
+                prevTranslateY = parseFloat(getComputedStyle(canvasBoxEl).transform.substring(6).split(',')[5])
                 startX = clientX;
                 startY = clientY;
-                editAreaDom.style.cursor = 'move'
-                editAreaDom?.addEventListener('mousemove', mouseMoveHandler)
+                editAreaEl.style.cursor = 'move'
+                editAreaEl.addEventListener('mousemove', mouseMoveHandler)
             }
         })
 
-        editAreaDom.addEventListener('mouseup', () => {
-            editAreaDom.style.cursor = 'default';
-            editAreaDom.removeEventListener('mousemove', mouseMoveHandler)
+        editAreaEl.addEventListener('mouseup', () => {
+            editAreaEl.style.cursor = 'default';
+            editAreaEl.removeEventListener('mousemove', mouseMoveHandler)
         })
+    }
+
+    bindScrollEvent(){
+        let editAreaEl = (this.editAreaRef.current) as HTMLElement
+        let wheelHandler = (wheelEvent:WheelEvent)=>{
+            this.setState(preState=>({
+                translateY:preState.translateY + wheelEvent.deltaY / 2
+            }))
+        }
+        editAreaEl.addEventListener('mousewheel',wheelHandler as EventListenerOrEventListenerObject)
     }
 
     componentDidMount() {
         this.centerCanvas()
         this.bindMouseEvent()
+        this.bindScrollEvent()
         this.token = PubSub.subscribe('centerCanvas',this.centerCanvas.bind(this))
     }
 
     componentWillUnmount(){
         PubSub.unsubscribe(this.token)
+        this.editAreaRef.current?.removeEventListener('mousewheel',this.bindScrollEvent)
     }
 
     render() {

@@ -12,7 +12,7 @@ export default function Calibration(props: ICalibrationProps): ReactElement {
     let calibrationLines = []
     let horizontalStyle: React.CSSProperties = {
         width: length + 'px',
-        height: '50px',
+        height: '44px',
         marginLeft:'5px',
         display: 'flex',
         flexShrink:0,

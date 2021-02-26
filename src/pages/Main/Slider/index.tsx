@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import './index.less'
 import { Button, Tabs } from 'antd'
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons'
+
+import Thumbnail from './Thumbnail'
 import { tabList } from './config'
 
 export default function Slider() {
@@ -20,7 +22,7 @@ export default function Slider() {
 
     return (
         <div className="slider" ref={sliderEl}>
-            <Tabs tabPosition="left" tabBarExtraContent={switchButton} onTabClick={()=>!status && switchHandler()}>
+            <Tabs tabPosition="left" tabBarExtraContent={switchButton} onTabClick={() => !status && switchHandler()}>
                 {
                     tabList.map((tabItem, index) => {
                         const tabContent = (
@@ -36,12 +38,7 @@ export default function Slider() {
                                 <div className="listWrap">
                                     {
                                         tabItem.components!.map((component, index) => (
-                                            <div className="componentItem" key={component.text + index}>
-                                                <div className="imgBox" key={component.text + index}>
-                                                    <img src={component.img} alt="" />
-                                                </div>
-                                                <div className="text">{component.text}</div>
-                                            </div>
+                                            <Thumbnail componentName={component.name} text={component.text} img={component.img} key={component.text + index} />
                                         ))
                                     }
                                 </div>
