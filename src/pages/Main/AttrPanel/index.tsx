@@ -2,7 +2,7 @@ import './index.less'
 import { useState } from 'react'
 import { Form,Input } from 'antd'
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons'
-import EditItem from './EditItem'
+import FormItem from '../../../core/FormItem'
 
 export default function AttrPanel() {
 
@@ -21,7 +21,7 @@ export default function AttrPanel() {
             </div>
             <div className="panelTitle">属性设置</div>
             <Form>
-                <EditItem children={<Input/>}/>
+                <FormItem children={<Input/>}/>
             </Form>
         </div>
     )

@@ -6,7 +6,7 @@ interface WrapperProps<T> {
     renderItem?: (item: T) => React.ReactNode;
 }
 
-const EditItem = <T extends {}>(props: React.PropsWithChildren<WrapperProps<T>>) => {
+const FormItem = <T extends {}>(props: React.PropsWithChildren<WrapperProps<T>>) => {
     return (
         <Form.Item label="width" labelCol={{ span: 6 }} wrapperCol={{span:16}} labelAlign="left" colon={false}>
             {props.children}
@@ -14,6 +14,6 @@ const EditItem = <T extends {}>(props: React.PropsWithChildren<WrapperProps<T>>)
     )
 }
 
-export default EditItem
+export default FormItem
 
 
